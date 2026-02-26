@@ -1,11 +1,11 @@
 <% @page_title = "Registered devices" %>
 
-<section class="panel panel--centered flex flex-column gap">
+<section class="panel panel--centered flex flex-column gap" style="--panel-size: auto;">
   <% if @devices.any? %>
     <h1 class="txt-x-large font-weight-black txt-tight-lines margin-none">
       Registered devices
     </h1>
-    <ul class="flex flex-column gap list-style-none full-width pad border-radius border" style="--inline-space: var(--block-space); --row-gap: var(--block-space);">
+    <ul class="flex flex-column gap list-style-none full-width pad border-radius border" style="--inline-space: var(--block-space);">
       <% @devices.each do |device| %>
         <li class="flex align-center gap txt-medium txt-align-start">
           <div class="flex-1 flex flex-column">
@@ -15,7 +15,10 @@
             </span>
             <%= tag.time "Added #{time_ago_in_words(device.created_at)} ago", datetime: device.created_at.to_i, class: "txt-subtle txt-x-small" %>
           </div>
-          <%= button_to "Remove", saas.device_path(device), method: :delete, class: "btn txt-small", data: { confirm: "Remove this device?" }, form: { class: "flex-item-no-shrink" } %>
+          <%= button_to saas.device_path(device), method: :delete, class: "btn btn--circle-mobile txt-small", data: { confirm: "Remove this device?" }, form: { class: "flex-item-no-shrink" } do %>
+            <%= icon_tag "trash", class: "icon--mobile-only" %>
+            <span class="overflow-ellipsis">Remove</span>
+          <% end %>
         </li>
       <% end %>
     </ul>
